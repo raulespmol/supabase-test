@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { AppContext } from './context/AppContext'
 import './App.css'
 import Item from './components/Item'
+import Button from './components/Button'
 
 function App() {
   const { items } = useContext(AppContext)
@@ -16,6 +17,7 @@ function App() {
       ) : (
         <p>Cargando items...</p>
       )}
+      <Button />
     </>
   )
 }
