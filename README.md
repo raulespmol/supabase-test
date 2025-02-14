@@ -9,6 +9,7 @@ Este proyecto es una aplicación web desarrollada con *React* y *Supabase* que p
 - Material UI
 
 ## Funcionalidades
+*En proceso*
 - 🔳 *Crear* nuevos productos en el inventario.
 - ✅ *Leer* la lista de productos almacenados.
 - 🔳 *Actualizar* información de productos existentes.
