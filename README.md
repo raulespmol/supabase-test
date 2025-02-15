@@ -5,13 +5,15 @@ Este proyecto es una aplicación web desarrollada con *React* y *Supabase* que p
 ## Tecnologías utilizadas
 - React
 - Supabase
-- Vite (para el entorno de desarrollo)
+- Vite
+- Material UI
 
 ## Funcionalidades
-- 📌 *Crear* nuevos productos en el inventario.
-- 📖 *Leer* la lista de productos almacenados.
-- ✏️ *Actualizar* información de productos existentes.
-- 🗑️ *Eliminar* productos del inventario.
+*En proceso*
+- 🔳 *Crear* nuevos productos en el inventario.
+- ✅ *Leer* la lista de productos almacenados.
+- 🔳 *Actualizar* información de productos existentes.
+- 🔳 *Eliminar* productos del inventario.
 
 ## Instalación y configuración
 1. Clona el repositorio e instala las dependencias:

@@ -1,10 +1,11 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import { SUPABASE_URL, SUPABASE_KEY } from '../config/constants';
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from '../config/constants';
 
 export const AppContext = createContext();
+console.log(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 export const AppProvider = ({ children }) => {
   const [items, setItems] = useState([]);
