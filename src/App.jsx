@@ -1,16 +1,18 @@
 import { useContext } from 'react'
 import { AppContext } from './context/AppContext'
 import './App.css'
-import Item from './components/Item'
 import Table from './components/Table'
+import { TextField } from '@mui/material'
+import Formulario from './components/Formulario'
 
 function App() {
   const { items } = useContext(AppContext)
 
   return (
     <>
-      <h2>Inventario</h2>
-      <Table data={items}/>
+      <h2 className="text-3xl mb-2 text-white">Inventario</h2>
+      <Table data={items} />
+      <Formulario />
     </>
   )
 }
