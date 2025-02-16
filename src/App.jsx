@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <h2 className="text-3xl mb-2 text-white">Inventario</h2>
+      <h2 className="text-3xl mb-2">Inventario</h2>
       <Table data={items} />
       <Formulario />
     </>
