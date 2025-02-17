@@ -1,10 +1,11 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { fetchItems } from '../services/supabaseServices';
+import { fetchItems, fetchMaterials, postItem } from '../services/supabaseServices';
 
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [items, setItems] = useState([]);
+  const [materials, setMaterials] = useState([]);
 
   const getItems = async () => {
     try {
@@ -15,12 +16,34 @@ export const AppProvider = ({ children }) => {
     }
   }
 
+  const getMaterials = async () => {
+    try {
+      const materials = await fetchMaterials();
+      setMaterials(materials);
+    } catch (error) {
+      console.error("Error al obtener materiales:", error);
+    }
+  }
+
+  const createItem = async (item) => {
+    try {
+      await postItem(item);
+      await getItems();
+    } catch (error) {
+      console.error("Error al crear producto:", error);
+    }
+    
+    await fetchItems()
+    return data
+  }
+
   useEffect(() => {
     getItems();
+    // getMaterials()
   }, []);
 
   return (
-    <AppContext.Provider value={{ items }}>
+    <AppContext.Provider value={{ items, materials, createItem }}>
       {children}
     </AppContext.Provider>
   );
