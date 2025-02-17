@@ -16,7 +16,20 @@ const fetchItems = async () => {
   return data
 }
 
-const createItem = async (item) => {
+const fetchMaterials = async () => {
+  const { data, error } = await supabase
+    .from('materiales') //crear consulta con join 
+    .select('*');
+
+  if (error) {
+    console.error('Error fetching materials:', error.message);
+    return;
+  }
+
+  return data
+}
+
+const postItem = async (item) => {
   const { data, error } = await supabase
     .from('productos')
     .insert(item);
@@ -31,6 +44,7 @@ const createItem = async (item) => {
 
 export {
   fetchItems,
-  createItem
+  fetchMaterials,
+  postItem
 }
 
