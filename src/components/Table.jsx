@@ -31,7 +31,7 @@ export default function DenseTable({data}) {
                 {item.nombre}
               </TableCell>
               <TableCell align="right">{item.medidas}</TableCell>
-              <TableCell align="right">{item.material}</TableCell>
+              <TableCell align="right">{item.materiales.nombre}</TableCell>
               <TableCell align="right">{item.observaciones}</TableCell>
               <TableCell align="right">{item.cantidad}</TableCell>
             </TableRow>

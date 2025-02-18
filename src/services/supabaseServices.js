@@ -6,20 +6,27 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const fetchItems = async () => {
   const { data, error } = await supabase
     .from('productos')
-    .select('*');
+    .select(`
+    id,
+    nombre,
+    cantidad,
+    medidas,
+    observaciones,
+    materiales(nombre)
+    `);
 
   if (error) {
     console.error('Error fetching items:', error.message);
     return;
   }
-
+  
   return data
 }
 
 const fetchMaterials = async () => {
   const { data, error } = await supabase
-    .from('materiales') //crear consulta con join 
-    .select('*');
+    .from('materiales') 
+    .select('nombre');
 
   if (error) {
     console.error('Error fetching materials:', error.message);
