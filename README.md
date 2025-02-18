@@ -10,10 +10,10 @@ Este proyecto es una aplicación web desarrollada con *React* y *Supabase* que p
 
 ## Funcionalidades
 *En proceso*
-- 🔳 *Crear* nuevos productos en el inventario.
-- ✅ *Leer* la lista de productos almacenados.
-- 🔳 *Actualizar* información de productos existentes.
-- 🔳 *Eliminar* productos del inventario.
+- 🟨 **Crear** nuevos productos en el inventario. *pendiente: Validar formulario*
+- ✅ **Leer** la lista de productos almacenados.
+- 🔳 **Actualizar** información de productos existentes.
+- 🔳 **Eliminar** productos del inventario.
 
 ## Instalación y configuración
 1. Clona el repositorio e instala las dependencias:
