@@ -38,7 +38,7 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     getItems();
-    // getMaterials()
+    getMaterials()
   }, []);
 
   return (

@@ -26,7 +26,10 @@ const fetchItems = async () => {
 const fetchMaterials = async () => {
   const { data, error } = await supabase
     .from('materiales') 
-    .select('nombre');
+    .select(`
+      id,
+      nombre
+    `);
 
   if (error) {
     console.error('Error fetching materials:', error.message);
