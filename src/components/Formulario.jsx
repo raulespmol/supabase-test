@@ -2,9 +2,18 @@ import { Button, TextField } from '@mui/material'
 import React, { useState, useContext } from 'react'
 import { AppContext } from '../context/AppContext'
 
+const nuevoItemInicial = {
+  nombre: '',
+  material: '',
+  medidas: '',
+  cantidad: '',
+  observaciones: ''
+}
+
 const Formulario = () => {
   const { createItem } = useContext(AppContext)
-  const [nuevoItem, setNuevoItem] = useState({})
+  const [nuevoItem, setNuevoItem] = useState(nuevoItemInicial)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleItem = e => {
     setNuevoItem({
@@ -15,8 +24,15 @@ const Formulario = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await createItem(nuevoItem)
-    setNuevoItem({})
+    setIsSubmitting(true)
+    try {
+      await createItem(nuevoItem)
+      setNuevoItem(nuevoItemInicial)
+    } catch (error) {
+      console.error("Error al crear el item", error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -30,36 +46,42 @@ const Formulario = () => {
           name="nombre" 
           label="Nombre" 
           variant="filled"
+          value={nuevoItem.nombre}
           onChange={handleItem}
         />
         <TextField 
           name="material" 
           label="Material" 
           variant="filled"
+          value={nuevoItem.material}
           onChange={handleItem}
         />
         <TextField 
           name="medidas" 
           label="Medidas" 
           variant="filled"
+          value={nuevoItem.medidas}
           onChange={handleItem}
         />
         <TextField 
           name="cantidad" 
           label="Cantidad" 
           variant="filled"
+          value={nuevoItem.cantidad}
           onChange={handleItem}
         />
         <TextField 
           name="observaciones" 
           label="Observaciones" 
           variant="filled"
+          value={nuevoItem.observaciones}
           onChange={handleItem}
         />
         <Button 
           variant="contained" 
           color="primary"
-          type='submit'
+          type="submit"
+          loading={isSubmitting}
         >
           Agregar
         </Button>

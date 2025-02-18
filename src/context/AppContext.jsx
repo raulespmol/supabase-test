@@ -34,7 +34,6 @@ export const AppProvider = ({ children }) => {
     }
     
     await fetchItems()
-    return data
   }
 
   useEffect(() => {
