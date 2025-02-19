@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { fetchMaterials, postItem } from '../services/supabaseServices';
+import { fetchItems, fetchMaterials, postItem } from '../services/supabaseServices';
 import { formattedData } from '../data/constants';
 
 export const AppContext = createContext();
