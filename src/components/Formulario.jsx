@@ -1,13 +1,13 @@
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import React, { useState, useContext } from 'react'
 import { AppContext } from '../context/AppContext'
+import { campos } from '../data/constants'
 
-const nuevoItemInicial = {
-  nombre: '',
-  material: '',
-  medidas: '',
-  cantidad: '',
-  observaciones: ''
+const nuevoItemInicial = () => {
+  return campos.reduce((acc, campo) => {
+    acc[campo.toLowerCase()] = ''
+    return acc
+  }, {})
 }
 
 const Formulario = () => {
@@ -42,48 +42,35 @@ const Formulario = () => {
     >
       <h3>Agregar Item</h3>
       <div className="flex flex-col gap-3">
-        <TextField 
-          name="nombre" 
-          label="Nombre" 
-          variant="outlined"
-          value={nuevoItem.nombre}
-          onChange={handleItem}
-        />
-        <FormControl fullWidth>
-          <InputLabel id="material-label">Material</InputLabel>
-          <Select
-            labelId="material-label"
-            value={nuevoItem.material}
-            name="material"
-            label="Age"
-            onChange={handleItem}
-          >
-            {materials.map(material => (
-              <MenuItem key={material.id} value={material.id}>{material.nombre}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <TextField 
-          name="medidas" 
-          label="Medidas" 
-          variant="outlined"
-          value={nuevoItem.medidas}
-          onChange={handleItem}
-        />
-        <TextField 
-          name="cantidad" 
-          label="Cantidad" 
-          variant="outlined"
-          value={nuevoItem.cantidad}
-          onChange={handleItem}
-        />
-        <TextField 
-          name="observaciones" 
-          label="Observaciones" 
-          variant="outlined"
-          value={nuevoItem.observaciones}
-          onChange={handleItem}
-        />
+        {campos.map(campo => (
+          campo.toLowerCase() === 'material' ? (
+            <FormControl fullWidth key={campo}>
+              <InputLabel id="material-label">Material</InputLabel>
+              <Select
+                labelId="material-label"
+                value={nuevoItem.material}
+                name="material"
+                label="Material"
+                onChange={handleItem}
+              >
+                {materials.map(material => (
+                  <MenuItem key={material.id} value={material.id}>{material.nombre}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            ) : (
+            <TextField 
+              key={campo}
+              name={campo.toLowerCase()} 
+              label={campo} 
+              variant="outlined"
+              value={nuevoItem[campo.toLowerCase()]}
+              onChange={handleItem}
+            />
+            )
+          ))
+        }
+        
         <Button 
           variant="contained" 
           color="primary"
