@@ -1,34 +1,49 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from '../config/constants';
+import { fetchItems, fetchMaterials, postItem } from '../services/supabaseServices';
+import { formattedData } from '../data/constants';
 
 export const AppContext = createContext();
-console.log(SUPABASE_URL, SUPABASE_ANON_KEY)
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 export const AppProvider = ({ children }) => {
   const [items, setItems] = useState([]);
+  const [materials, setMaterials] = useState([]);
 
   const getItems = async () => {
-    const { data, error } = await supabase
-      .from('productos')
-      .select('*');
-
-    if (error) {
-      console.error('Error fetching items:', error.message);
-      return;
+    try {
+      const items = await formattedData();
+      setItems(items);
+    } catch (error) {
+      console.error("Error al obtener productos:", error);
     }
+  }
 
-    setItems(data)
+  const getMaterials = async () => {
+    try {
+      const materials = await fetchMaterials();
+      setMaterials(materials);
+    } catch (error) {
+      console.error("Error al obtener materiales:", error);
+    }
+  }
+
+  const createItem = async (item) => {
+    try {
+      await postItem(item);
+      await getItems();
+    } catch (error) {
+      console.error("Error al crear producto:", error);
+    }
+    
+    await fetchItems()
   }
 
   useEffect(() => {
     getItems();
+    getMaterials()
   }, []);
 
   return (
-    <AppContext.Provider value={{ items }}>
+    <AppContext.Provider value={{ items, materials, createItem }}>
       {children}
     </AppContext.Provider>
   );
