@@ -2,7 +2,6 @@ import { useContext } from 'react'
 import { AppContext } from './context/AppContext'
 import './App.css'
 import Table from './components/Table'
-import { TextField } from '@mui/material'
 import Formulario from './components/Formulario'
 
 function App() {
