@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { fetchItems, fetchMaterials, postItem } from '../services/supabaseServices';
+import { fetchMaterials, postItem } from '../services/supabaseServices';
+import { formattedData } from '../data/constants';
 
 export const AppContext = createContext();
 
@@ -9,7 +10,7 @@ export const AppProvider = ({ children }) => {
 
   const getItems = async () => {
     try {
-      const items = await fetchItems();
+      const items = await formattedData();
       setItems(items);
     } catch (error) {
       console.error("Error al obtener productos:", error);
