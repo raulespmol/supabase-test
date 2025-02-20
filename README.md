@@ -7,6 +7,8 @@ Este proyecto es una aplicación web desarrollada con *React* y *Supabase* que p
 - Supabase
 - Vite
 - Material UI
+- Tailwind CSS
+- React hookForm
 
 ## Funcionalidades
 *En proceso*
