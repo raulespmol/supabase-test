@@ -17,17 +17,23 @@ const nuevoItemInicial = {
   medidas: "",
   cantidad: "",
   observaciones: "",
-}
+};
 
 const Formulario = () => {
   const { createItem, materials } = useContext(AppContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { register, handleSubmit, watch } = useForm({
-    defaultValues: nuevoItemInicial
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: nuevoItemInicial,
   });
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = handleSubmit(async (data) => {
+    console.log(errors);
   });
 
   return (
@@ -38,7 +44,15 @@ const Formulario = () => {
           name="nombre"
           label="Nombre"
           variant="outlined"
-          {...register("nombre")}
+          {...register("nombre", {
+            required: {
+              value: true,
+              message: "Este campo es requerido",
+            },
+          })}
+          error={errors.nombre}
+          helperText={errors.nombre?.message}
+          
         />
 
         <FormControl fullWidth>
@@ -47,7 +61,14 @@ const Formulario = () => {
             labelId="material-label"
             label="Material"
             value={watch("material")}
-            {...register("material")}
+            {...register("nombre", {
+              required: {
+                value: true,
+                message: "Este campo es requerido",
+              },
+            })}
+            error={errors.material}
+            helperText={errors.material?.message}
           >
             {materials.map((material) => (
               <MenuItem key={material.id} value={material.id}>
@@ -61,14 +82,28 @@ const Formulario = () => {
           name="medidas"
           label="Medidas"
           variant="outlined"
-          {...register("medidas")}
+          {...register("medidas", {
+            required: {
+              value: true,
+              message: "Este campo es requerido",
+            },
+          })}
+          error={errors.medidas}
+          helperText={errors.medidas?.message}
         />
 
         <TextField
           name="cantidad"
           label="Cantidad"
           variant="outlined"
-          {...register("cantidad")}
+          {...register("cantidad", {
+            required: {
+              value: true,
+              message: "Este campo es requerido",
+            },
+          })}
+          error={errors.cantidad}
+          helperText={errors.cantidad?.message}
         />
 
         <TextField
