@@ -8,11 +8,11 @@ function App() {
   const { items } = useContext(AppContext)
 
   return (
-    <>
+    <main className="flex flex-col items-center justify-center min-h-screen">
       <h2 className="text-3xl mb-2">Inventario</h2>
       <Table data={items} />
       <Formulario />
-    </>
+    </main>
   )
 }
 
