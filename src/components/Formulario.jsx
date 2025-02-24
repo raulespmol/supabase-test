@@ -54,6 +54,10 @@ const Formulario = () => {
             minLength: {
               value: 3,
               message: "El nombre debe tener al menos 3 caracteres",
+            },
+            maxLength: {
+              value: 50,
+              message: "El nombre debe tener menos de 50 caracteres",
             }
           })}
           error={!!errors.nombre}
@@ -64,7 +68,7 @@ const Formulario = () => {
         <FormControl 
           size="small" 
           fullWidth
-          error={errors.material}
+          error={!!errors.material}
         >
           <InputLabel id="material-label">Material</InputLabel>
           <Select
@@ -103,7 +107,7 @@ const Formulario = () => {
             }
             
           })}
-          error={errors.medidas}
+          error={!!errors.medidas}
           helperText={errors.medidas?.message}
         />
 
@@ -127,7 +131,7 @@ const Formulario = () => {
               message: "La cantidad máxima es 100",
             }
           })}
-          error={errors.cantidad}
+          error={!!errors.cantidad}
           helperText={errors.cantidad?.message}
         />
 
@@ -145,7 +149,7 @@ const Formulario = () => {
               message: "Las observaciones deben tener menos de 200 caracteres",
             }
           })}
-          error={errors.observaciones}
+          error={!!errors.observaciones}
           helperText={errors.observaciones?.message}
         />
 
