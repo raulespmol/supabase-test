@@ -1,4 +1,4 @@
-import { fetchItems } from "../services/supabaseServices"
+import DB from "../services/supabaseServices"
 
 const campos = [
   "Nombre",
@@ -9,7 +9,7 @@ const campos = [
 ] // Campos de la tabla, pendiente traerlos desde Supabase
 
 const formattedData = async () => {
-  const data = await fetchItems()
+  const data = await DB.fetchItems()
   const formatted = data.map(({ materiales, ...rest }) => ({
     ...rest,
     material: materiales.nombre

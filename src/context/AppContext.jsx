@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { fetchItems, fetchMaterials, postItem } from '../services/supabaseServices';
+import DB from '../services/supabaseServices';
 import { formattedData } from '../data/constants';
 
 export const AppContext = createContext();
@@ -19,7 +19,7 @@ export const AppProvider = ({ children }) => {
 
   const getMaterials = async () => {
     try {
-      const materials = await fetchMaterials();
+      const materials = await DB.fetchMaterials();
       setMaterials(materials);
     } catch (error) {
       console.error("Error al obtener materiales:", error);
@@ -28,13 +28,13 @@ export const AppProvider = ({ children }) => {
 
   const createItem = async (item) => {
     try {
-      await postItem(item);
+      await DB.postItem(item);
       await getItems();
     } catch (error) {
       console.error("Error al crear producto:", error);
     }
     
-    await fetchItems()
+    await DB.fetchItems()
   }
 
   useEffect(() => {

@@ -52,7 +52,7 @@ const postItem = async (item) => {
   return data
 }
 
-export {
+export default {
   fetchItems,
   fetchMaterials,
   postItem
