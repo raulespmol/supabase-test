@@ -26,6 +26,9 @@ export default function DenseTable({data}) {
             {campos.map((campo) => (
               <TableCell key={campo}>{campo}</TableCell>
             ))}
+            <TableCell>
+              Acciones
+            </TableCell>
           </TableRow>
         </TableHead>
 
@@ -42,6 +45,18 @@ export default function DenseTable({data}) {
                   {item[campo.toLowerCase()] || "N/A"}
                 </TableCell>
               ))}
+
+              <TableCell>
+                <Stack direction="row" spacing={1}>
+                  <IconButton size="small">
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+
+                  <IconButton size="small">
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                </Stack>
+              </TableCell>
             </TableRow>
           ))
         ) : (
