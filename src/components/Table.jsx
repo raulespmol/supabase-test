@@ -24,6 +24,7 @@ export default function DenseTable({data}) {
           {data && data.length ? (
             data.map((item) => (
             <TableRow
+              className="hover:bg-gray-100"
               key={item.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
