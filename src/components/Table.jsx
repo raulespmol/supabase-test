@@ -67,7 +67,7 @@ export default function DenseTable({data}) {
                     size="small"
                     onClick={() => handleDelete(item.id)}
                   >
-                    <DeleteIcon fontSize="small" />
+                    <DeleteIcon fontSize="small" color="warning"/>
                   </IconButton>
                 </Stack>
               </TableCell>
