@@ -10,7 +10,6 @@ import {
 import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AppContext } from "../context/AppContext";
-import { campos } from "../data/constants";
 
 const nuevoItemInicial = {
   nombre: "",
@@ -28,13 +27,22 @@ const Formulario = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: nuevoItemInicial,
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
+    setIsSubmitting(true);
+    try {
+      await createItem(data);
+      reset(nuevoItemInicial);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   });
 
   return (
