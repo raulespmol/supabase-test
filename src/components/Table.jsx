@@ -15,9 +15,17 @@ import {
   Edit as EditIcon,
 } from '@mui/icons-material';
 
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 import {campos} from '../data/constants';
 
 export default function DenseTable({data}) {
+  const { deleteItem } = useContext(AppContext);
+
+  const handleDelete = async (id) => {
+    await deleteItem(id);
+  }
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -48,11 +56,17 @@ export default function DenseTable({data}) {
 
               <TableCell>
                 <Stack direction="row" spacing={1}>
-                  <IconButton size="small">
+                  <IconButton 
+                    size="small"
+                    onClick={() => console.log('Editando...', item.id)}
+                  >
                     <EditIcon fontSize="small" />
                   </IconButton>
 
-                  <IconButton size="small">
+                  <IconButton 
+                    size="small"
+                    onClick={() => handleDelete(item.id)}
+                  >
                     <DeleteIcon fontSize="small" />
                   </IconButton>
                 </Stack>

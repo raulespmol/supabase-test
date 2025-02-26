@@ -37,13 +37,29 @@ export const AppProvider = ({ children }) => {
     await DB.fetchItems()
   }
 
+  const deleteItem = async (id) => {
+    try {
+      await DB.deleteItem(id);
+      await getItems();
+    } catch (error) {
+      console.error("Error al eliminar producto:", error);
+    }
+  }
+
   useEffect(() => {
     getItems();
     getMaterials()
   }, []);
 
   return (
-    <AppContext.Provider value={{ items, materials, createItem }}>
+    <AppContext.Provider 
+      value={{
+        items, 
+        materials, 
+        createItem,
+        deleteItem
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

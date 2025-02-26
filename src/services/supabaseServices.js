@@ -52,9 +52,23 @@ const postItem = async (item) => {
   return data
 }
 
+const deleteItem = async (id) => {
+  const {data, error} = await supabase
+    .from('productos')
+    .delete()
+    .eq('id', id)
+    .select();
+  if (error) {
+    console.error('Error deleting item:', error.message);
+    return;
+  }
+  return data
+}
+
 export default {
   fetchItems,
   fetchMaterials,
-  postItem
+  postItem,
+  deleteItem
 }
 
