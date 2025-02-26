@@ -47,7 +47,7 @@ const Formulario = () => {
 
   return (
     <form className="mt-4 w-[600px]" onSubmit={onSubmit}>
-      <h3 className="text-xl mb-3">Agregar Item</h3>
+      <h3 className="text-xl mb-3 text-center font-medium">Agregar Item</h3>
       <div className="flex flex-col gap-3">
         <TextField
           size="small"

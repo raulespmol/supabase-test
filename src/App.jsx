@@ -9,7 +9,7 @@ function App() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      <h2 className="text-3xl mb-2">Inventario</h2>
+      <h2 className="text-3xl mb-2 font-medium">Inventario</h2>
       <Table data={items} />
       <Formulario />
     </main>
