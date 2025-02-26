@@ -1,101 +1,177 @@
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
-import React, { useState, useContext } from 'react'
-import { AppContext } from '../context/AppContext'
+import {
+  Button,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
+import React, { useState, useContext } from "react";
+import { useForm } from "react-hook-form";
+import { AppContext } from "../context/AppContext";
 
 const nuevoItemInicial = {
-  nombre: '',
-  material: '',
-  medidas: '',
-  cantidad: '',
-  observaciones: ''
-}
+  nombre: "",
+  material: "",
+  medidas: "",
+  cantidad: "",
+  observaciones: "",
+};
 
 const Formulario = () => {
-  const { createItem, materials } = useContext(AppContext)
-  const [nuevoItem, setNuevoItem] = useState(nuevoItemInicial)
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { createItem, materials } = useContext(AppContext);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleItem = e => {
-    setNuevoItem({
-      ...nuevoItem,
-      [e.target.name]: e.target.value
-    })
-  }
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: nuevoItemInicial,
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+  const onSubmit = handleSubmit(async (data) => {
+    setIsSubmitting(true);
     try {
-      await createItem(nuevoItem)
-      setNuevoItem(nuevoItemInicial)
+      await createItem(data);
+      reset(nuevoItemInicial);
     } catch (error) {
-      console.error("Error al crear el item", error)
+      console.error(error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  });
 
   return (
-    <form 
-      className="mt-4"
-      onSubmit={handleSubmit}
-    >
-      <h3>Agregar Item</h3>
+    <form className="mt-4 w-[600px]" onSubmit={onSubmit}>
+      <h3 className="text-xl mb-3 text-center font-medium">Agregar Item</h3>
       <div className="flex flex-col gap-3">
-        <TextField 
-          name="nombre" 
-          label="Nombre" 
+        <TextField
+          size="small"
+          name="nombre"
+          label="Nombre"
           variant="outlined"
-          value={nuevoItem.nombre}
-          onChange={handleItem}
+          {...register("nombre", {
+            required: {
+              value: true,
+              message: "Este campo es requerido",
+            },
+            minLength: {
+              value: 3,
+              message: "El nombre debe tener al menos 3 caracteres",
+            },
+            maxLength: {
+              value: 50,
+              message: "El nombre debe tener menos de 50 caracteres",
+            }
+          })}
+          error={!!errors.nombre}
+          helperText={errors.nombre?.message}
+          
         />
-        <FormControl fullWidth>
+
+        <FormControl 
+          size="small" 
+          fullWidth
+          error={!!errors.material}
+        >
           <InputLabel id="material-label">Material</InputLabel>
           <Select
             labelId="material-label"
-            value={nuevoItem.material}
-            name="material"
-            label="Age"
-            onChange={handleItem}
+            label="Material"
+            value={watch("material")}
+            {...register("material", {
+              required: {
+                value: true,
+                message: "Selecciona un material",
+              },
+            })}
           >
-            {materials.map(material => (
-              <MenuItem key={material.id} value={material.id}>{material.nombre}</MenuItem>
+            {materials.map((material) => (
+              <MenuItem key={material.id} value={material.id}>
+                {material.nombre}
+              </MenuItem>
             ))}
           </Select>
+          <FormHelperText>{errors.material?.message}</FormHelperText>
         </FormControl>
-        <TextField 
-          name="medidas" 
-          label="Medidas" 
+
+        <TextField
+          size="small"
+          name="medidas"
+          label="Medidas"
           variant="outlined"
-          value={nuevoItem.medidas}
-          onChange={handleItem}
+          {...register("medidas", {
+            required: {
+              value: true,
+              message: "Este campo es requerido",
+            },
+            pattern: {
+              value: /^\d{1,3}[xX]\d{1,3}$/,
+              message: "El formato debe ser 999x999 (ancho x alto)",
+            }
+            
+          })}
+          error={!!errors.medidas}
+          helperText={errors.medidas?.message}
         />
-        <TextField 
-          name="cantidad" 
-          label="Cantidad" 
+
+        <TextField
+          size="small"
+          type="number"
+          name="cantidad"
+          label="Cantidad"
           variant="outlined"
-          value={nuevoItem.cantidad}
-          onChange={handleItem}
+          {...register("cantidad", {
+            required: {
+              value: true,
+              message: "Este campo es requerido",
+            },
+            min: {
+              value: 1,
+              message: "La cantidad mínima es 1",
+            },
+            max: {
+              value: 100,
+              message: "La cantidad máxima es 100",
+            }
+          })}
+          error={!!errors.cantidad}
+          helperText={errors.cantidad?.message}
         />
-        <TextField 
-          name="observaciones" 
-          label="Observaciones" 
+
+        <TextField
+          multiline
+          rows={4}
+          size="small"
+          name="observaciones"
+          label="Observaciones"
           variant="outlined"
-          value={nuevoItem.observaciones}
-          onChange={handleItem}
+          {...register("observaciones", {
+            required: false,
+            maxLength: {
+              value: 200,
+              message: "Las observaciones deben tener menos de 200 caracteres",
+            }
+          })}
+          error={!!errors.observaciones}
+          helperText={errors.observaciones?.message}
         />
-        <Button 
-          variant="contained" 
+
+        <Button
+          variant="contained"
           color="primary"
           type="submit"
           loading={isSubmitting}
         >
           Agregar
         </Button>
-        
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default Formulario
+export default Formulario;

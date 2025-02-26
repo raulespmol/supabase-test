@@ -1,16 +1,18 @@
 # Supabase Test - Inventario de Productos
 
-Este proyecto es una aplicación web desarrollada con *React* y *Supabase* que permite gestionar un inventario de productos. El objetivo principal es probar las funcionalidades de Supabase para realizar operaciones CRUD de manera sencilla y eficiente.
+Este proyecto es una aplicación web desarrollada con *React* y *Supabase* que permite gestionar un inventario de letreros. El objetivo principal es probar las funcionalidades de Supabase para realizar operaciones CRUD de manera sencilla y eficiente.
 
 ## Tecnologías utilizadas
 - React
 - Supabase
 - Vite
 - Material UI
+- Tailwind CSS
+- React Hook Form
 
-## Funcionalidades
-*En proceso*
-- 🟨 **Crear** nuevos productos en el inventario. *pendiente: Validar formulario*
+## Funcionalidades *(en proceso)*
+
+- ✅ **Crear** nuevos productos en el inventario.
 - ✅ **Leer** la lista de productos almacenados.
 - 🔳 **Actualizar** información de productos existentes.
 - 🔳 **Eliminar** productos del inventario.
@@ -18,7 +20,7 @@ Este proyecto es una aplicación web desarrollada con *React* y *Supabase* que p
 ## Instalación y configuración
 1. Clona el repositorio e instala las dependencias:
 ```
-  git clone https://github.com/tu-usuario/supabase-test.git
+  git clone https://github.com/raulespmol/supabase-test.git
   cd supabase-test
   npm install
 ```
@@ -31,11 +33,9 @@ VITE_SUPABASE_ANON_KEY=tu_supabase_anon_key
 ```
 
 
-3. Inicia el entorno de desarrollo:
-
-```
+3. Inicia el entorno de desarrollo: `
 npm run dev
-```
+`
 
 
 ## Próximos pasos
