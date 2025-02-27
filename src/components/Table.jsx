@@ -91,7 +91,12 @@ export default function DenseTable({data}) {
         </TableBody>
       </Table>
 
-      <ModalDelete open={openDelete} item={selectedItem}/>
+      <ModalDelete 
+        open={openDelete}
+        setOpen={setOpenDelete}
+        item={selectedItem}
+        setItem={setSelectedItem}
+      />
     </TableContainer>
   );
 }

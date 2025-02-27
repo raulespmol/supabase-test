@@ -6,12 +6,30 @@ import {
   DialogContentText
 } from '@mui/material';
 
+import { useContext, useState } from 'react';
+import { AppContext } from '../context/AppContext';
 import {Delete as DeleteIcon} from '@mui/icons-material';
 
-const ModalDelete = ({item, open}) => {
+const ModalDelete = ({item, setItem, open, setOpen}) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { deleteItem } = useContext(AppContext);
+
   const handleClose = () => {
+    setItem(null);
     setOpen(false);
   }
+
+  const handleDelete = async (item) => {
+    try {
+      setIsLoading(true);
+      await deleteItem(item);
+    } catch (error) {
+      console.error("Error al eliminar producto:", error);
+    } finally {
+      setIsLoading(false);
+      handleClose();
+    }
+  } 
 
   return (
     <Dialog
@@ -24,12 +42,13 @@ const ModalDelete = ({item, open}) => {
       </DialogContent>
       <DialogActions>
         <Button
-          onClick={() => console.log('Cancelar')}
+          onClick={handleClose}
         >
-          No, cancelar
+          No, mantenerlo
         </Button>
         <Button
-          onClick={() => console.log('Eliminar', item)}
+          onClick={() => handleDelete(item)}
+          disabled={isLoading}
           color='error'
           startIcon={<DeleteIcon fontSize='xs'/>}
         >
