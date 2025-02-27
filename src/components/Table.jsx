@@ -15,14 +15,24 @@ import {
   Edit as EditIcon,
 } from '@mui/icons-material';
 
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import {campos} from '../data/constants';
+import ModalDelete from './ModalDelete';
 
 export default function DenseTable({data}) {
   const { deleteItem } = useContext(AppContext);
 
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [openDelete, setOpenDelete] = useState(false);
+
+  const handleOpenDelete = (item) => {
+    setSelectedItem(item);
+    setOpenDelete(true)
+  }
+
   const handleDelete = async (id) => {
+    console.log('Eliminando...', id);
     await deleteItem(id);
   }
 
@@ -65,7 +75,7 @@ export default function DenseTable({data}) {
 
                   <IconButton 
                     size="small"
-                    onClick={() => handleDelete(item.id)}
+                    onClick={() => handleOpenDelete(item.id)}
                   >
                     <DeleteIcon fontSize="small" color="warning"/>
                   </IconButton>
@@ -80,6 +90,8 @@ export default function DenseTable({data}) {
         )}
         </TableBody>
       </Table>
+
+      <ModalDelete open={openDelete} item={selectedItem}/>
     </TableContainer>
   );
 }
