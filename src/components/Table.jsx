@@ -19,6 +19,7 @@ import {
 import { useState } from 'react';
 import {campos} from '../data/constants';
 import ModalDelete from './ModalDelete';
+import Notification from './Notification';
 
 export default function DenseTable({data}) {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -30,70 +31,78 @@ export default function DenseTable({data}) {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            {campos.map((campo) => (
-              <TableCell key={campo}>{campo}</TableCell>
-            ))}
-            <TableCell>
-              Acciones
-            </TableCell>
-          </TableRow>
-        </TableHead>
-
-        <TableBody>
-          {data && data.length ? (
-            data.map((item) => (
-            <TableRow
-              className="hover:bg-gray-100"
-              key={item.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
+    <>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+          <TableHead>
+            <TableRow>
               {campos.map((campo) => (
-                <TableCell key={campo}>
-                  {item[campo.toLowerCase()] || "N/A"}
-                </TableCell>
+                <TableCell key={campo}>{campo}</TableCell>
               ))}
-
               <TableCell>
-                <Stack direction="row" spacing={1}>
-                  <IconButton 
-                    size="small"
-                    onClick={() => console.log('Editando...', item.id)}
-                  >
-                    <EditIcon fontSize="small" />
-                  </IconButton>
+                Acciones
+              </TableCell>
+            </TableRow>
+          </TableHead>
 
-                  <IconButton 
-                    size="small"
-                    onClick={() => handleOpenDelete(item.id)}
-                  >
-                    <DeleteIcon fontSize="small" color="warning"/>
-                  </IconButton>
-                </Stack>
-              </TableCell>
-            </TableRow>
-          ))
-        ) : (
-          Array.from({ length: 4 }).map((_, index) => (
-            <TableRow key={index}>
-              <TableCell colSpan={campos.length + 1}>
-                <Skeleton />
-              </TableCell>
-            </TableRow>
-          ))
-        )}
-        </TableBody>
-      </Table>
+          <TableBody>
+            {data && data.length ? (
+              data.map((item) => (
+              <TableRow
+                className="hover:bg-gray-100"
+                key={item.id}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                {campos.map((campo) => (
+                  <TableCell key={campo}>
+                    {item[campo.toLowerCase()] || "N/A"}
+                  </TableCell>
+                ))}
+
+                <TableCell>
+                  <Stack direction="row" spacing={1}>
+                    <IconButton 
+                      size="small"
+                      onClick={() => console.log('Editando...', item.id)}
+                    >
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+
+                    <IconButton 
+                      size="small"
+                      onClick={() => handleOpenDelete(item.id)}
+                    >
+                      <DeleteIcon fontSize="small" color="warning"/>
+                    </IconButton>
+                  </Stack>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            Array.from({ length: 4 }).map((_, index) => (
+              <TableRow key={index}>
+                <TableCell colSpan={campos.length + 1}>
+                  <Skeleton />
+                </TableCell>
+              </TableRow>
+            ))
+          )}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
       <ModalDelete 
-        open={openDelete}
-        setOpen={setOpenDelete}
-        item={selectedItem}
-        setItem={setSelectedItem}
+          open={openDelete}
+          setOpen={setOpenDelete}
+          item={selectedItem}
+          setItem={setSelectedItem}
       />
-    </TableContainer>
+
+      <Notification
+        open={true}
+        severity={"success"}
+        message={"Mensaje Prueba"}
+      />
+    </>
   );
 }
