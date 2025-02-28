@@ -7,7 +7,8 @@ import {
   TableRow, 
   Paper, 
   IconButton, 
-  Stack 
+  Stack,
+  Skeleton
 } from '@mui/material';
 
 import { 
@@ -84,9 +85,13 @@ export default function DenseTable({data}) {
             </TableRow>
           ))
         ) : (
-          <TableRow>
-            <TableCell align="center">Cargando...</TableCell>
-          </TableRow>
+          Array.from({ length: 4 }).map((_, index) => (
+            <TableRow key={index}>
+              <TableCell colSpan={campos.length + 1}>
+                <Skeleton />
+              </TableCell>
+            </TableRow>
+          ))
         )}
         </TableBody>
       </Table>
