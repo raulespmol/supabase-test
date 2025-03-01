@@ -99,7 +99,7 @@ export default function DenseTable({data}) {
       />
 
       <Notification
-        open={true}
+        open={false}
         severity={"success"}
         message={"Mensaje Prueba"}
       />

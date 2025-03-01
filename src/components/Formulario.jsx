@@ -10,6 +10,7 @@ import {
 import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AppContext } from "../context/AppContext";
+import { useNotification } from "../context/NotificationContext";
 
 const nuevoItemInicial = {
   nombre: "",
@@ -22,6 +23,7 @@ const nuevoItemInicial = {
 const Formulario = () => {
   const { createItem, materials } = useContext(AppContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const notify = useNotification();
 
   const {
     register,
@@ -38,8 +40,10 @@ const Formulario = () => {
     try {
       await createItem(data);
       reset(nuevoItemInicial);
+      notify("Item agregado correctamente", "success");
     } catch (error) {
       console.error(error);
+      notify("Error al agregar item", "error");
     } finally {
       setIsSubmitting(false);
     }
