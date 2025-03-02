@@ -3,15 +3,17 @@ import {
   Alert
 } from '@mui/material'
 
-const Notification = ({open, severity, message}) => {
+const Notification = ({open, severity, message, onClose}) => {
+
   return (
     <Snackbar
       open={open}
       autoHideDuration={6000}
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'center'
+        vertical: 'bottom',
+        horizontal: 'right'
       }}
+      onClose={onClose}
     >
       <Alert
         severity={severity}

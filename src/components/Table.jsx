@@ -19,7 +19,6 @@ import {
 import { useState } from 'react';
 import {campos} from '../data/constants';
 import ModalDelete from './ModalDelete';
-import Notification from './Notification';
 
 export default function DenseTable({data}) {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -96,12 +95,6 @@ export default function DenseTable({data}) {
           setOpen={setOpenDelete}
           item={selectedItem}
           setItem={setSelectedItem}
-      />
-
-      <Notification
-        open={false}
-        severity={"success"}
-        message={"Mensaje Prueba"}
       />
     </>
   );
